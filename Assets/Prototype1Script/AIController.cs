@@ -20,20 +20,39 @@ public class AIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
-        if (playerInSightRange)
+        /*        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+
+                if (playerInSightRange)
+                {
+                    agent.SetDestination(player.transform.position);
+                }
+                else
+                {
+                    agent.ResetPath();
+                }*/
+        // Direction from the enemy to the player
+        Vector3 directionToPlayer = player.position - transform.position;
+
+        // Check if there's a clear line of sight between the enemy and the player
+        RaycastHit hitInfo;
+        if (Physics.Raycast(transform.position, directionToPlayer, out hitInfo, sightRange, whatIsPlayer))
         {
+            // The ray hit something on the player's layer, meaning the enemy can see the player
             agent.SetDestination(player.transform.position);
+            Debug.DrawRay(transform.position, directionToPlayer, Color.green);
         }
         else
         {
-            agent.ResetPath();
+            // The ray did not hit the player's layer, meaning the player is not in sight
+            Debug.DrawRay(transform.position, directionToPlayer, Color.red);
         }
-       
+
     }
+    
 
     private void OnDrawGizmosSelected()
     {
+       
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position,sightRange);
     }
