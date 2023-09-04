@@ -11,18 +11,22 @@ public class PlayerController : MonoBehaviour
     public LayerMask whatIsGround;
     public Transform groundCheck;
     public float radCircle;
-    private float defaultSpeed;
-    public bool isGrounded;
-    private Rigidbody player;
-    public int maxHealth = 3;
-    private Vector3 defaultScale;
+    public bool isGrounded; 
     
+    public int maxHealth = 3;
+    private Rigidbody player;
+    private float defaultSpeed;
+    private Vector3 defaultScale;
+    private Camera cam;
+    private float defaultFOV;
     private bool isOn = true;
     public float stamina = 100;
     private void Start()
     {
         player = GetComponent<Rigidbody>();
-         defaultSpeed = speed;
+        defaultSpeed = speed;
+        cam = Camera.main;
+        defaultFOV = cam.fieldOfView;
         defaultScale = transform.localScale;
     }
 
@@ -46,12 +50,15 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            speed += (speed * 20/100);
+            speed += (speed * 100/100);
             Debug.Log(speed);
             DepleteStamina(10.0f);
+            cam.fieldOfView = 60;
+
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
+            cam.fieldOfView = defaultFOV;
             speed = defaultSpeed;
         }
         if (Input.GetKeyDown(KeyCode.LeftControl))
