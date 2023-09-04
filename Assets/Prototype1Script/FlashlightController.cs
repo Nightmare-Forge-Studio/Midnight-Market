@@ -39,8 +39,21 @@ public class FlashlightController : MonoBehaviour
                 light.intensity -= Time.deltaTime * (drainRate/1000);
             }
         }
+        if (Input.GetKey(KeyCode.R))
+        {
+            if (light.intensity < maxBrightness)
+            {
+                PumpFlashlight(0.03f);
+            }
+        }
+
 
     }
+    private void PumpFlashlight(float amount)
+    {
+        light.intensity += amount;
+    }
+    
     
     
 }

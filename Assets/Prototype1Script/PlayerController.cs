@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] private float speed = 10.0f;
+    public float speed = 10.0f;
     public float jumpHeight;
     public Transform orientation;
     public LayerMask whatIsGround;
@@ -15,17 +15,19 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded;
     private Rigidbody player;
     public int maxHealth = 3;
+    private Vector3 defaultScale;
     
     private bool isOn = true;
     public float stamina = 100;
-    void Start()
+    private void Start()
     {
         player = GetComponent<Rigidbody>();
          defaultSpeed = speed;
+        defaultScale = transform.localScale;
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         float moveZ = Input.GetAxis("Vertical") * speed * Time.deltaTime;
         float moveX = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
@@ -38,30 +40,32 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButton("Jump") && isGrounded)
         {
             player.velocity = new Vector3(player.velocity.z,jumpHeight);
+
             //transform.Translate(0, jumpHeight * Time.deltaTime, 0);
             
         }
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             speed += (speed * 20/100);
-            stamina -= 10 * Time.deltaTime;
             Debug.Log(speed);
+            DepleteStamina(10.0f);
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            DepleteStamina(10.0f);
             speed = defaultSpeed;
         }
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             speed -= (speed * 50/100);
             gameObject.layer = default;
+            transform.localScale = new Vector3(transform.localScale.x, 0.5f, transform.localScale.z); 
             Debug.Log(speed);
 
         }
         else if (Input.GetKeyUp(KeyCode.LeftControl))
         {
             speed = defaultSpeed;
+            transform.localScale = defaultScale;
             gameObject.layer = 3;
         }
 
@@ -81,5 +85,13 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage()
     {
         maxHealth -= 1;
+        if (maxHealth == 0)
+        {
+            Die();
+        }
+    }
+    private void Die()
+    {
+        gameObject.active = false;
     }
 }

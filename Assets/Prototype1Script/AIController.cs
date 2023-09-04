@@ -11,9 +11,11 @@ public class AIController : MonoBehaviour
     public float sightRange;
     private bool playerInSightRange = false;
     public LayerMask whatIsPlayer;
+    public PlayerController playerController;
     // Start is called before the first frame update
     void Start()
     {
+        // playerController = GetComponent<PlayerController>();
         
     }
 
@@ -48,7 +50,15 @@ public class AIController : MonoBehaviour
         }
 
     }
-    
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            playerController.TakeDamage();
+            Debug.Log("letsgo");
+        }
+    }
+
 
     private void OnDrawGizmosSelected()
     {
