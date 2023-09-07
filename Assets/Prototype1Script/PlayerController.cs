@@ -50,19 +50,23 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            speed += (speed * 100/100);
+            //chage speed to 120% and change fov to close one
+            speed += (speed * 20/100);
             Debug.Log(speed);
-            DepleteStamina(10.0f);
+            DepleteStamina(0.01f);
             cam.fieldOfView = 60;
 
         }
         else if (Input.GetKeyUp(KeyCode.LeftShift))
         {
+            //chage speed to default and change fov to normal
             cam.fieldOfView = defaultFOV;
             speed = defaultSpeed;
         }
         if (Input.GetKeyDown(KeyCode.LeftControl))
         {
+            //chage speed to 50%
+
             speed -= (speed * 50/100);
             gameObject.layer = default;
             transform.localScale = new Vector3(transform.localScale.x, 0.5f, transform.localScale.z); 

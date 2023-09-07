@@ -54,6 +54,4 @@ public class FlashlightController : MonoBehaviour
         light.intensity += amount;
     }
     
-    
-    
 }

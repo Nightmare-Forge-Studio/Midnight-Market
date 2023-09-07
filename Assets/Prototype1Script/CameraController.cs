@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //rotate camera based of sensitivity
         Camera.main.transform.position = cameraPosition.transform.position;
         float camrotx = Input.GetAxis("Mouse X") * sensx * Time.deltaTime;
         float camroty = Input.GetAxis("Mouse Y") * sensy * Time.deltaTime;
