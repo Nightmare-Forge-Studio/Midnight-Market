@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Rendering;
@@ -13,16 +14,28 @@ public class AIController : MonoBehaviour
     public LayerMask whatIsPlayer;
     public PlayerController playerController;
     public Vector3 range;
+    public Transform[] waypoint;
+
+    enum EnemyState
+    {
+        non_active,
+        activating,
+        idle,
+        seeking,
+        chasing,
+        attacking
+    }
     // Start is called before the first frame update
     void Start()
     {
-
+        EnemyState state;
+        state = EnemyState.non_active;
         
     }
 
     // Update is called once per frame
     void Update()
-    {
+    {   
         /*        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
 
                 if (playerInSightRange)
@@ -48,6 +61,15 @@ public class AIController : MonoBehaviour
         {
             // The ray did not hit the player's layer, meaning the player is not in sight
             Debug.DrawRay(transform.position, directionToPlayer, Color.red);
+            EnemyPatrol();
+        }
+
+    }
+    private void EnemyPatrol(){
+        if (!agent.hasPath)
+        {   
+        int randomIndex= Random.Range(0 ,waypoint.Length );
+        agent.SetDestination(waypoint[randomIndex].position);
         }
 
     }
