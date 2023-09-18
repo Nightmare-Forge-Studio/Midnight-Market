@@ -13,12 +13,16 @@ public class Interactor : MonoBehaviour
     }
     void Update()
     {
+        
         if (Input.GetKeyDown(KeyCode.E))
         {
+
             float interactRange = 2f;
+            // Find all colliders within the interact range that are on the interact layer              
             Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange, interactLayer);
             foreach (Collider collider in colliderArray)
             {
+                // Check if the collider has a component that implements the IInteractable interface
                 if (collider.TryGetComponent(out IInteractable interactable))
                 {
                     interactable.Interact();
@@ -27,6 +31,7 @@ public class Interactor : MonoBehaviour
             }
         }
     }
+    //this method is for showing a interact text
     public  IInteractable GetInteractableObject(){
         float interactRange = 2f;
         Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange, interactLayer);

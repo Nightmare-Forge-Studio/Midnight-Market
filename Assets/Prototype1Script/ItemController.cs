@@ -1,23 +1,31 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCController : MonoBehaviour,IInteractable
+public class ItemController : MonoBehaviour,IInteractable
 {
+    public String name;
+    public String Description;
+    
+    [SerializeField] private bool isObtained;
+
     public string GetInteractText()
     {
-        return "Talk To Fauzan";
+        return "Pick up "+ name;
     }
 
     public void Interact()
     {
-        throw new System.NotImplementedException();
+        isObtained = true;
+        ItemManager.instance.AddItem(this);
+        gameObject.active = false;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
