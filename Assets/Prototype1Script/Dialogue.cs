@@ -13,6 +13,7 @@ public class Dialogue : MonoBehaviour
 
     private int index;
 
+    [SerializeField] private GameObject player;
 
     // Start is called before the first frame update
     void Start()
@@ -24,10 +25,11 @@ public class Dialogue : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             if (textComponent.text == lines[index])
             {
+
                 NextLine();
             }
             else
@@ -64,6 +66,8 @@ public class Dialogue : MonoBehaviour
         else
         {
             gameObject.SetActive(false);
+            player.GetComponent<PlayerController>().enabled = true;
+
         }
     }
 }

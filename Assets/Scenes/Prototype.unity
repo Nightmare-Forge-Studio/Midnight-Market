@@ -6446,22 +6446,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcdfcc0476896042a1dbc46353153ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1276620987}
+  player: {fileID: 0}
   agent: {fileID: 542725216}
   sightRange: 4.79
   whatIsPlayer:
     serializedVersion: 2
     m_Bits: 8
-  playerController: {fileID: 1276620983}
+  playerController: {fileID: 0}
   range: {x: 4.63, y: 0, z: 0}
   waypoint:
-  - {fileID: 706586229}
-  - {fileID: 760367489}
-  - {fileID: 2096050166}
-  - {fileID: 426192408}
-  - {fileID: 2103395069}
-  - {fileID: 1317273086}
-  - {fileID: 1179940658}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!54 &542725222
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -20681,6 +20681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3d60157a33117b4c8cc6e819416ecb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  npcDialogue: {fileID: 0}
 --- !u!1 &1881995663
 GameObject:
   m_ObjectHideFlags: 0
@@ -21413,11 +21414,11 @@ PrefabInstance:
     - target: {fileID: 3481287265776454345, guid: c6f86b952f2627840b0faa9b89a3b274, type: 3}
       propertyPath: orientation
       value: 
-      objectReference: {fileID: 259819382}
+      objectReference: {fileID: 0}
     - target: {fileID: 3481287265776454345, guid: c6f86b952f2627840b0faa9b89a3b274, type: 3}
       propertyPath: cameraPosition
       value: 
-      objectReference: {fileID: 168714920}
+      objectReference: {fileID: 0}
     - target: {fileID: 4223048241556990666, guid: c6f86b952f2627840b0faa9b89a3b274, type: 3}
       propertyPath: m_Name
       value: Main Camera
