@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using TMPro;
 
 public class Dialogue : MonoBehaviour
@@ -12,7 +13,7 @@ public class Dialogue : MonoBehaviour
     public float textSpeed;
 
     private int index;
-
+    public UnityEvent gotFlashlight;
     [SerializeField] private GameObject player;
 
     // Start is called before the first frame update
@@ -68,9 +69,10 @@ public class Dialogue : MonoBehaviour
         }
         else
         {
+            gotFlashlight.Invoke();
             gameObject.SetActive(false);
             player.GetComponent<PlayerController>().enabled = true;
-
+            
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class VentController : MonoBehaviour
+public class VentController : MonoBehaviour,IInteractable
 {
     public String name;
 
@@ -14,6 +14,8 @@ public class VentController : MonoBehaviour
     [SerializeField] private Image screenFadeImage; // Reference to a UI image used for screen fading.
     [SerializeField] private float fadeDuration = 1.0f; // Duration of the fade effect in seconds.
 
+    public String interactText;
+
     private bool isFading = false; // Flag to prevent overlapping fades.
 
     private void OnDrawGizmos()
@@ -22,13 +24,13 @@ public class VentController : MonoBehaviour
         Gizmos.DrawWireSphere(destination.position, .4f);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player") && !isFading)
-        {
-            StartCoroutine(FadeScreenInAndOut());
-        }
-    }
+    // private void OnTriggerEnter(Collider other)
+    // {
+    //     if (other.CompareTag("Player") && !isFading)
+    //     {
+    //         StartCoroutine(FadeScreenInAndOut());
+    //     }
+    // }
 
     private IEnumerator FadeScreenInAndOut()
     {
@@ -95,5 +97,16 @@ public class VentController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
+
+    public string GetInteractText()
+    {
+        return interactText;
+    }
+
+    public void Interact()
+    {
+        StartCoroutine(FadeScreenInAndOut());
+
     }
 }
