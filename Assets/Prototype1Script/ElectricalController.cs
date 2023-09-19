@@ -64,7 +64,7 @@ public class ElectricalController : MonoBehaviour,IInteractable
         if (hasFuseStorage && hasFuseOffice)
         {
             gameObject.layer = default;
-
+            
         }
     }
 }

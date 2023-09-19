@@ -2,24 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NPCController : MonoBehaviour,IInteractable
+public class TeleportToVent : MonoBehaviour,IInteractable
 {
-
-    public GameObject npcDialogue;
+    [SerializeField] private GameObject ventLocation = null;
+    [SerializeField] private GameObject player = null;
+    
     public string GetInteractText()
     {
-        return "Talk To Fauzan";
+        return "Go to Vent";
     }
 
     public void Interact()
     {
-        npcDialogue.SetActive(true);
+        player.transform.position = ventLocation.transform.position;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
