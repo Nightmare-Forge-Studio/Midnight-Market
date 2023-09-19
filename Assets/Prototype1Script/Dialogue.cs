@@ -36,12 +36,15 @@ public class Dialogue : MonoBehaviour
             {
                 StopAllCoroutines();
                 textComponent.text = lines[index];
+
             }
         }
     }
 
     void StartDialogue()
     {
+        player.GetComponent<PlayerController>().enabled = false;
+
         index = 0;
         StartCoroutine(TypeLine());
     }
