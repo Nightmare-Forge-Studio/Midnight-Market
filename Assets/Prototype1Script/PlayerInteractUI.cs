@@ -8,6 +8,7 @@ public class PlayerInteractUI : MonoBehaviour
 
     [SerializeField] private GameObject containerGameObject;
     [SerializeField] private TextMeshProUGUI interactText;
+
     void Update()
     {
         if (Interactor.instance.GetInteractableObject() != null){

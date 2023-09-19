@@ -9,6 +9,7 @@ public class ItemController : MonoBehaviour,IInteractable
     public String Description;
     
     [SerializeField] private bool isObtained;
+    public bool isPlaced;
 
     public string GetInteractText()
     {
