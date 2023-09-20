@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class ObjectiveManager : MonoBehaviour
 {
-    public ObjectiveController[] objectiveDatas;
+    public ObjectivesController[] objectiveDatas;
 
-   public void AddObjective(ObjectiveData objective)
+   public void AddObjective(ObjectivesController objective)
    {
     
    }
 
-   public void RemoveObjective(ObjectiveData objective)
+   public void RemoveObjective(ObjectivesController objective)
    {
     
    }

@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectiveController : MonoBehaviour
+public class ObjectivesController : MonoBehaviour
+
 {
 
-    public ObjectivesManager objectiveManager;
+    private ObjectiveManager objectiveManager;
 
-
-    public void MarkObjectiveAsComplete(ObjectiveController objective)
+ 
+    public void MarkObjectiveAsComplete(ObjectivesController objective)
     {
         objective.IsComplete = true;
 
@@ -19,7 +20,7 @@ public class ObjectiveController : MonoBehaviour
             if (CheckConditionsForObjective2())
             {
                 // Aktifkan objektif 2
-                ObjectiveController objective2 = GetObjectiveByID(2);
+                ObjectivesController objective2 = GetObjectiveByID(2);
                 if (objective2 != null)
                 {
                     ActivateObjective(objective2);
@@ -31,7 +32,7 @@ public class ObjectiveController : MonoBehaviour
     private bool CheckConditionsForObjective2()
     {
         //untuk memeriksa apakah obj 1 sudah selesai atau belum
-        ObjectiveController objective1 = GetObjectiveByID(1);
+        ObjectivesController objective1 = GetObjectiveByID(1);
         if (objective1 != null && objective1.IsComplete)
         {
             //untuk menambahkan kondisi lain jika ada
@@ -40,19 +41,23 @@ public class ObjectiveController : MonoBehaviour
         return false;
     }
 
-    private ObjectiveController GetObjectiveByID(int objectiveID)
+    private ObjectivesController GetObjectiveByID(int objectiveID)
     {
-        foreach (var objective in objectiveManager.objectiveDatas)
+
+       foreach (ObjectivesController objectives in objectiveManager.objectiveDatas)
         {
-            if (objective.ID == objectiveID)
+            if (objectives.ID == objectiveID) 
             {
-                return objective;
+                return objectives;            
             }
+           
         }
+
         return null;
+           
     }
 
-    private void ActivateObjective(ObjectiveController objective)
+    private void ActivateObjective(ObjectivesController objective)
     {
         objective.IsActive = true;
     }
@@ -66,17 +71,6 @@ public class ObjectiveController : MonoBehaviour
     public Requirement ObjectiveRequirement;
     public HintData ObjectiveHint;
 
-    public ObjectiveController(int id, string description, ObjectiveType type, Requirement requirement, HintData hint)
-    {
-        ID = id;
-        Description = description;
-        IsComplete = false;
-        IsActive = false;
-        Type = type;
-        Progress = 0f;
-        ObjectiveRequirement = requirement;
-        ObjectiveHint = hint;
-    }
 
 
     public class Requirement
