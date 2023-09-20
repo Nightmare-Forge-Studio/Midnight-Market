@@ -12375,6 +12375,7 @@ MonoBehaviour:
   isGrounded: 0
   maxHealth: 3
   stamina: 100
+  canCrouch: 1
 --- !u!136 &1276620984
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -12457,7 +12458,7 @@ Transform:
   m_GameObject: {fileID: 1276620982}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 90, y: 0, z: -84.7}
+  m_LocalPosition: {x: 155.68, y: 0, z: -54.68}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12939,9 +12940,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1346200446924781720, guid: 76de7e18ca91cbb4a8fe8b5af2956ddd, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1276620983}
+    - target: {fileID: 1346200446924781720, guid: 76de7e18ca91cbb4a8fe8b5af2956ddd, type: 3}
       propertyPath: screenFadeImage
       value: 
       objectReference: {fileID: 1267126269}
+    - target: {fileID: 4714051919207342209, guid: 76de7e18ca91cbb4a8fe8b5af2956ddd, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1276620983}
     - target: {fileID: 4714051919207342209, guid: 76de7e18ca91cbb4a8fe8b5af2956ddd, type: 3}
       propertyPath: screenFadeImage
       value: 

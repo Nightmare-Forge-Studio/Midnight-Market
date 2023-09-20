@@ -13,7 +13,6 @@ public class VentController : MonoBehaviour,IInteractable
 
     [SerializeField] private Image screenFadeImage; // Reference to a UI image used for screen fading.
     [SerializeField] private float fadeDuration = 1.0f; // Duration of the fade effect in seconds.
-
     public String interactText;
 
     private bool isFading = false; // Flag to prevent overlapping fades.
@@ -85,6 +84,7 @@ public class VentController : MonoBehaviour,IInteractable
             playerController.speed -= (playerController.speed * 50 / 100);
             player.transform.localScale = new Vector3(player.transform.localScale.x, 0.5f, player.transform.localScale.z);
             player.gameObject.layer = 0; // Change the layer to the default layer.
+            playerController.canCrouch = !playerController.canCrouch;
             Debug.Log(playerController.speed);
         }
     }
