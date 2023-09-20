@@ -21,6 +21,10 @@ public class PlayerController : MonoBehaviour
     private float defaultFOV;
     private bool isOn = true;
     public float stamina = 100;
+    public bool canCrouch = true;
+    public bool canMove = true;
+
+    
     private void Start()
     {
         player = GetComponent<Rigidbody>();
@@ -35,9 +39,11 @@ public class PlayerController : MonoBehaviour
     {
         float moveZ = Input.GetAxis("Vertical") * speed * Time.deltaTime;
         float moveX = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
-        
+        if (canMove)
+        {
         transform.Translate(moveX,0,0);
         transform.Translate(0,0,moveZ);
+        }
         gameObject.transform.rotation = orientation.transform.rotation;
         isGrounded = Physics.CheckSphere(groundCheck.position, radCircle, whatIsGround);
 
@@ -63,21 +69,24 @@ public class PlayerController : MonoBehaviour
             cam.fieldOfView = defaultFOV;
             speed = defaultSpeed;
         }
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (canCrouch)
         {
-            //chage speed to 50%
+            
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                //chage speed to 50%
+                speed -= (speed * 50/100);
+                gameObject.layer = default;
+                transform.localScale = new Vector3(transform.localScale.x, 0.5f, transform.localScale.z); 
+                Debug.Log(speed);
 
-            speed -= (speed * 50/100);
-            gameObject.layer = default;
-            transform.localScale = new Vector3(transform.localScale.x, 0.5f, transform.localScale.z); 
-            Debug.Log(speed);
-
-        }
-        else if (Input.GetKeyUp(KeyCode.LeftControl))
-        {
-            speed = defaultSpeed;
-            transform.localScale = defaultScale;
-            gameObject.layer = 3;
+            }
+            else if (Input.GetKeyUp(KeyCode.LeftControl))
+            {
+                speed = defaultSpeed;
+                transform.localScale = defaultScale;
+                gameObject.layer = 3;
+            }
         }
 
         
