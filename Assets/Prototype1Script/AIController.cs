@@ -9,12 +9,18 @@ public class AIController : MonoBehaviour
 {
     public Transform player;
     public NavMeshAgent agent;
-    public float sightRange;
-    private bool playerInSightRange = false;
+    // public float sightRange;
+    // private bool playerInSight = false;
     public LayerMask whatIsPlayer;
     public PlayerController playerController;
     public Vector3 range;
-    public Transform[] waypoint;
+    public Transform[] waypoints;
+    private Animator anim;
+
+    [SerializeField] private EnemyState currentState;
+    [SerializeField] private float losingPlayerTimer = 0f;
+    [SerializeField] private AIVision aiVision;
+    private int currentWaypointIndex = 0;
 
     enum EnemyState
     {
@@ -25,18 +31,20 @@ public class AIController : MonoBehaviour
         chasing,
         attacking
     }
+
     // Start is called before the first frame update
     void Start()
     {
-        EnemyState state;
-        state = EnemyState.non_active;
-        
+        anim = GetComponent<Animator>();
+
+        currentState = EnemyState.seeking;
     }
 
     // Update is called once per frame
     void Update()
-    {   
-        /*        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+    {
+        /*if ()
+                playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
 
                 if (playerInSightRange)
                 {
@@ -45,7 +53,7 @@ public class AIController : MonoBehaviour
                 else
                 {
                     agent.ResetPath();
-                }*/
+                }
         // Direction from the enemy to the player
         Vector3 directionToPlayer = player.position - transform.position;
 
@@ -55,34 +63,103 @@ public class AIController : MonoBehaviour
         {
             // The ray hit something on the player's layer, meaning the enemy can see the player
             agent.SetDestination(player.transform.position);
-            Debug.DrawRay(transform.position, directionToPlayer, Color.green);
+            // Debug.DrawRay(transform.position, directionToPlayer, Color.green);
         }
         else
         {
             // The ray did not hit the player's layer, meaning the player is not in sight
-            Debug.DrawRay(transform.position, directionToPlayer, Color.red);
+            // Debug.DrawRay(transform.position, directionToPlayer, Color.red);
             EnemyPatrol();
         }
+        */
+        if (currentState == EnemyState.non_active)
+        {
+            // non_active logic
+        }
+        else if (currentState == EnemyState.activating)
+        {
+            // activating logic
+        }
+        else if (currentState == EnemyState.idle)
+        {
+            // idle logic
+        }
+        else if (currentState == EnemyState.seeking)
+        {
+            if (!agent.hasPath && waypoints.Length > 0)
+            {
+                MoveToWaypoint();
+            }
 
+            if (aiVision.GetCanSeePlayer())
+            {
+                currentState = EnemyState.chasing;
+            }
+        }
+        else if (currentState == EnemyState.chasing)
+        {
+            agent.SetDestination(player.position);
+
+            if (aiVision.GetLastAwareTimer() >= losingPlayerTimer)
+            {
+                currentState = EnemyState.seeking;
+            }
+
+            if (Vector3.Distance(transform.position, player.position) <= 2.5f)
+            {
+                StartCoroutine(Attack());
+            }
+        }
+        else if (currentState == EnemyState.attacking)
+        {
+            // attacking logic
+        }
     }
-    private void EnemyPatrol(){
-        if (!agent.hasPath)
-        {   
-        int randomIndex= Random.Range(0 ,waypoint.Length );
-        agent.SetDestination(waypoint[randomIndex].position);
+
+    private IEnumerator Attack()
+    {
+        Debug.Log(Vector3.Distance(transform.position, player.position));
+        agent.isStopped = true;
+
+        currentState = EnemyState.attacking;
+        anim.SetTrigger("Attack");
+
+        yield return new WaitForSeconds(1f);
+
+        if (aiVision.GetCanSeePlayer())
+        {                
+            currentState = EnemyState.chasing;
+        }
+        else
+        {
+            currentState = EnemyState.seeking;
         }
 
+        agent.isStopped = false;
     }
+
+    private void MoveToWaypoint()
+    {
+        int randomIndex;
+        do
+        {
+            randomIndex = Random.Range(0, waypoints.Length);
+        }
+        while (currentWaypointIndex == randomIndex);
+
+        currentWaypointIndex = randomIndex;
+        agent.SetDestination(waypoints[currentWaypointIndex].position);
+    }
+
+    /*
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag("Player"))
         {
             //give damage to player
             playerController.TakeDamage();
-
         }
     }
-
 
     private void OnDrawGizmosSelected()
     {
@@ -90,4 +167,5 @@ public class AIController : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position,sightRange);
     }
+    */
 }
